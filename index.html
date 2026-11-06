@@ -43,6 +43,7 @@
       padding: 40px 32px 36px;
       backdrop-filter: blur(16px);
       box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
+      transition: opacity 0.3s;
     }
 
     @media (max-width: 480px) {
@@ -132,10 +133,30 @@
       margin-top: 20px;
       line-height: 1.45;
     }
+
+    .success {
+      display: none;
+      text-align: center;
+      padding: 20px 0;
+    }
+    .success h2 {
+      color: var(--gold);
+      font-size: 26px;
+      margin-bottom: 12px;
+    }
+    .success p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+    .success button {
+      background: linear-gradient(135deg, var(--gold), #ffcc33);
+    }
   </style>
 </head>
 <body>
-  <div class="card">
+  <div class="card" id="formCard">
     <div class="logo"><span>SOLAR INTERATIVO 360°</span></div>
     <h1>Pré-inscrição<br><em>Versão 1.0</em></h1>
     <p class="subtitle">Garanta seu acesso antecipado à experiência interativa do Sistema Solar.</p>
@@ -156,12 +177,38 @@
     <p class="note">Após o envio você será redirecionado para a experiência Solar Interativo.</p>
   </div>
 
+  <div class="card success" id="successCard">
+    <div class="logo"><span>SOLAR INTERATIVO 360°</span></div>
+    <h2>Inscrição confirmada!</h2>
+    <p>Sua pré-inscrição foi registrada com sucesso.<br>Você será redirecionado em instantes para a experiência.</p>
+    <button id="goNow">Ir agora para o Solar Interativo</button>
+  </div>
+
   <script>
-    document.getElementById('preForm').addEventListener('submit', function (e) {
+    const form = document.getElementById('preForm');
+    const formCard = document.getElementById('formCard');
+    const successCard = document.getElementById('successCard');
+    const goNow = document.getElementById('goNow');
+
+    form.addEventListener('submit', function (e) {
       e.preventDefault();
       const btn = this.querySelector('button');
       btn.disabled = true;
-      btn.textContent = 'Redirecionando…';
+      btn.textContent = 'Enviando…';
+
+      // Simula envio (aqui você pode integrar com Formspree, Sheets etc. no futuro)
+      setTimeout(() => {
+        formCard.style.display = 'none';
+        successCard.style.display = 'block';
+
+        // Redireciona automaticamente após 4 segundos
+        setTimeout(() => {
+          window.location.href = 'https://solarinterativo.grok.me';
+        }, 4000);
+      }, 600);
+    });
+
+    goNow.addEventListener('click', () => {
       window.location.href = 'https://solarinterativo.grok.me';
     });
   </script>
